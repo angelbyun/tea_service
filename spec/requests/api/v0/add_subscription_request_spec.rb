@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Customer Subscription API" do
-  describe "Customer Subscription" do
+RSpec.describe "Add Subscription API" do
+  describe "Add Subscription" do
     before(:each) do
       @cust_1 = Customer.create!(first_name: "Angel", last_name: "Byun", email: "angel123@email.com", address: "123 Littleton Way, Littleton, CO 80123")
       @cust_2 = Customer.create!(first_name: "Scott", last_name: "Le", email: "scottlovestea@email.com", address: "987 Main St, Aurora, CO, 80016")
