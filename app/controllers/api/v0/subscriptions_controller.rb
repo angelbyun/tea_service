@@ -6,7 +6,7 @@ class Api::V0::SubscriptionsController < ApplicationController
     if subscription.save
       render json: SubscriptionSerializer.new(subscription), status: 201
     else
-      render json: { error: "Incorrect input, please input all information so you can subscribe to this tea" }, status: 400
+      render json: { error: "Your subscription was unsuccessful" }, status: 400
     end
   end
 

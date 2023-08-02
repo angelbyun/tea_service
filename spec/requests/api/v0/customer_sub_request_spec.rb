@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Customer Subscription API" do
   describe "Customer Subscription" do
-    before do
+    before(:each) do
       @cust_1 = Customer.create!(first_name: "Angel", last_name: "Byun", email: "angel123@email.com", address: "123 Littleton Way, Littleton, CO 80123")
       @cust_2 = Customer.create!(first_name: "Scott", last_name: "Le", email: "scottlovestea@email.com", address: "987 Main St, Aurora, CO, 80016")
 
@@ -42,6 +42,19 @@ RSpec.describe "Customer Subscription API" do
       expect(sub_data[:frequency]).to eq("Monthly")
       expect(sub_data).to have_key(:customer_id)
       expect(sub_data).to have_key(:tea_id)
+    end
+    
+    it "displays error message when subscription was unsuccessful" do
+      post '/api/v0/subscribe', params: { title: "Hibiscus", price: "12.00", status: "Active", frequency: "Monthly", customer_id: @cust_1.id }
+      
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(error).to be_a(Hash)
+      expect(error).to have_key(:error)
+      expect(error[:error]).to eq("Your subscription was unsuccessful")
     end
   end
 end
