@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     namespace :v0 do
       post '/subscribe', to: 'subscriptions#create'
       patch '/unsubscribe', to: 'subscriptions#cancel'
+      get '/subscriptions', to: 'customers#show'
     end
   end
 end
